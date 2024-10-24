@@ -1,0 +1,52 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.light-Body {
+  background-color: white;
+  color: black;
+}
+
+.light-Btn {
+  background-color: white;
+  border: black solid 3px;
+}
+
+.dark-Body {
+  background-color: black;
+}
+
+.dark-Btn {
+  box-shadow: 0 0 10px 5px yellow;
+  border: white solid 3px;
+  background-color: black;
+  color: white;
+}
+
+body {
+  transition: 1s ease-in-out;
+}
