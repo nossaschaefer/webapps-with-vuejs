@@ -37,41 +37,27 @@
           />
         </div>
       </form>
-      <form @submit.prevent="addTodo">
-        <input
-          ref="todoInput"
-          v-model="newTodo"
-          type="text"
-          id="add"
-          placeholder="Enter your Todo..."
-          class="same-width"
-        /><label for="add"></label>
-      </form>
     </div>
 
-    <button @click="addTodo" id="addBtn" class="same-width">
-      Add New ToDos
-    </button>
+    <form @submit.prevent="addTodo">
+      <input
+        ref="todoInput"
+        v-model="newTodo"
+        type="text"
+        id="add"
+        placeholder="Enter your Todo..."
+        class="same-width"
+      /><label for="add"></label>
+    </form>
 
-    <div class="container-liste">
-      <ul>
-        <li v-for="todo in filteredTodos" :key="todo.id">
-          <label v-bind:for="`todo-$(todo.id)`">
-            {{ todo.description }}
-          </label>
-          <input
-            type="checkbox"
-            name="`todo-$(todo.id)`"
-            :id="`todo-$(todo.id)`"
-            :checked="todo.done"
-            @change="toggleTodoStatus(todo)"
-          />
-        </li>
-      </ul>
-    </div>
-    <button id="rmButton" @click="removeDoneTodos" class="same-width">
-      Remove Done ToDos
-    </button>
+    <ButtonAddTodo @addedTodo="addTodo" id="addBtn" class="same-width" />
+
+    <TodoList
+      :filteredTodos="filteredTodos"
+      @toggleTodoStatus="toggleTodoStatus"
+    />
+
+    <ButtonRemoveTodo @removedDoneTodos="removeDoneTodos" />
   </main>
 </template>
 
@@ -80,17 +66,28 @@ import HeaderComponent from '@/components/HeaderComponent.vue'
 import RadioButtons from './components/RadioButtons.vue'
 import InputAddTodo from './components/InputAddTodo.vue'
 import ButtonAddTodo from './components/ButtonAddTodo.vue'
+import ButtonRemoveTodo from '@/components/ButtonRemoveTodo.vue'
+import TodoList from './components/TodoList.vue'
+import { useTodosStore } from '@/stores/todos.js'
 
 export default {
   data() {
     return {
+      store: useTodosStore(),
       todos: JSON.parse(localStorage.getItem('todos')) || [],
 
       newTodo: '',
       filter: 'all',
     }
   },
-  components: { HeaderComponent, RadioButtons, InputAddTodo, ButtonAddTodo },
+  components: {
+    HeaderComponent,
+    RadioButtons,
+    InputAddTodo,
+    ButtonAddTodo,
+    ButtonRemoveTodo,
+    TodoList,
+  },
   computed: {
     filteredTodos() {
       if (this.filter === 'open') {

@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <button @click="$emit('addedTodo')" id="addBtn">Add New ToDos</button>
-  </div>
+  <button @click="$emit('addedTodo')" id="addBtn">Add New ToDos</button>
 </template>
 
-<style>
+<style scoped>
 #addBtn {
   background-color: #d5ff00;
   color: #ff7eff;
@@ -15,6 +13,6 @@
   font-size: 17px;
   margin-bottom: 20px;
   box-shadow: 3px 3px 5px 1px #ff7eff;
-  /* width: 100%; Ensure buttons take up full width of their container */
+  align-self: center;
 }
 </style>

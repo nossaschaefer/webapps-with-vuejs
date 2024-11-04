@@ -1,10 +1,4 @@
-<template>
-  <form>
-    <input type="text" id="add" placeholder="Enter your Todo..." /><label
-      for="add"
-    ></label>
-  </form>
-</template>
+<template></template>
 
 <script></script>
 

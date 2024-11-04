@@ -1,21 +1,4 @@
-<template>
-  <form id="radioBtns">
-    <div class="div-radio">
-      <label for="all">All</label>
-      <input type="radio" id="all" name="filter" checked />
-    </div>
-
-    <div class="div-radio">
-      <label for="open">Open</label>
-      <input type="radio" id="open" name="filter" />
-    </div>
-
-    <div class="div-radio">
-      <label for="done">Done</label>
-      <input type="radio" id="done" name="filter" />
-    </div>
-  </form>
-</template>
+<template></template>
 
 <style>
 #new-todo:focus,
