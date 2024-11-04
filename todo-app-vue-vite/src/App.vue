@@ -40,7 +40,6 @@
       <input
         ref="todoInput"
         v-model="newTodo"
-        @keydown.enter="addTodo"
         type="text"
         id="add"
         placeholder="Enter your Todo..."
@@ -100,30 +99,88 @@ export default {
     },
   },
   methods: {
-    addTodo() {
+    async addTodo() {
       if (this.newTodo.trim()) {
-        this.todos.push({
+        const newTodo = {
           description: this.newTodo,
           done: false,
-          id: this.todos.length + 1,
-        })
-        this.newTodo = ''
-        ;(this.filter = 'all'), this.saveTodos()
-        this.$refs.todoInput.focus()
+        }
+        try {
+          const response = await fetch('http://localhost:3000/todos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newTodo),
+          })
+          if (!response.ok) {
+            throw new Error('Failed to add todo')
+          }
+          const createdTodo = await response.json()
+          this.todos.push(createdTodo) // Use the response from the server
+          this.newTodo = ''
+          this.filter = 'all'
+          this.$refs.todoInput.focus()
+          this.saveTodos()
+        } catch (error) {
+          console.error('Error adding todo:', error)
+        }
       }
     },
     saveTodos() {
       localStorage.setItem('todos', JSON.stringify(this.todos)) // Save todos array
     },
-    toggleTodoStatus(todo) {
+    async toggleTodoStatus(todo) {
       todo.done = !todo.done
-      this.saveTodos() // Save updated todos to local storage
+      try {
+        const response = await fetch(`http://localhost:3000/todos/${todo.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ done: todo.done }),
+        })
+        if (!response.ok) {
+          throw new Error(`Failed to update todo with id ${todo.id}`)
+        }
+        this.saveTodos()
+      } catch (error) {
+        console.error('Error updating todo:', error)
+        // Optionally, revert the local state if update fails
+        todo.done = !todo.done
+      }
     },
-    removeDoneTodos() {
-      this.todos = this.todos.filter(todo => !todo.done)
-      this.filter = 'all'
-      this.saveTodos()
+    async removeDoneTodos() {
+      const completedTodos = this.todos.filter(todo => todo.done)
+      try {
+        for (const todo of completedTodos) {
+          const response = await fetch(
+            `http://localhost:3000/todos/${todo.id}`,
+            {
+              method: 'DELETE',
+            },
+          )
+          if (!response.ok) {
+            throw new Error(`Failed to delete todo with id ${todo.id}`)
+          }
+        }
+        // Filter out deleted todos from the local list
+        this.todos = this.todos.filter(todo => !todo.done)
+        this.filter = 'all'
+        this.saveTodos()
+      } catch (error) {
+        console.error('Error removing todos:', error)
+      }
     },
+  },
+  async created() {
+    try {
+      const response = await fetch('http://localhost:3000/todos')
+      if (!response.ok) {
+        throw new Error('Failed to fetch todos')
+      }
+      const todos = await response.json()
+      this.todos = todos
+      this.saveTodos() // Optionally save to localStorage if needed
+    } catch (error) {
+      console.error('Error fetching todos:', error)
+    }
   },
 }
 </script>
