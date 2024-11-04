@@ -8,7 +8,7 @@
 header {
   background-color: #5c2cff;
   padding-top: 50px;
-  padding-left: 50px;
+
   padding-bottom: 8px;
   margin: -0.5rem;
 }
@@ -23,5 +23,6 @@ h1 {
   margin: 0;
   font-family: 'Fredoka', sans-serif;
   margin-bottom: 10px;
+  text-align: center;
 }
 </style>

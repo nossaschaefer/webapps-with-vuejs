@@ -29,8 +29,8 @@
 #radioBtns {
   display: flex;
   padding-block: 20px;
-  justify-content: flex-start;
   color: #ff7eff;
+  justify-content: space-evenly;
 }
 
 #all,
@@ -55,6 +55,9 @@
 
 .div-radio {
   display: flex;
-  margin-right: 20px;
+}
+
+.container-radios {
+  align-self: center;
 }
 </style>

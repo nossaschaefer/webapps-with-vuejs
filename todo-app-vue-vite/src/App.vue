@@ -2,69 +2,73 @@
   <HeaderComponent />
 
   <main class="centered-container">
-    <form id="radioBtns">
-      <div class="div-radio">
-        <label for="all">All</label>
-        <input
-          type="radio"
-          id="all"
-          name="filter"
-          value="all"
-          v-model="filter"
-        />
-      </div>
+    <div class="container-radios">
+      <form id="radioBtns">
+        <div class="div-radio">
+          <label for="all">All</label>
+          <input
+            type="radio"
+            id="all"
+            name="filter"
+            value="all"
+            v-model="filter"
+          />
+        </div>
 
-      <div class="div-radio">
-        <label for="open">Open</label>
-        <input
-          type="radio"
-          id="open"
-          name="filter"
-          value="open"
-          v-model="filter"
-        />
-      </div>
+        <div class="div-radio">
+          <label for="open">Open</label>
+          <input
+            type="radio"
+            id="open"
+            name="filter"
+            value="open"
+            v-model="filter"
+          />
+        </div>
 
-      <div class="div-radio">
-        <label for="done">Done</label>
+        <div class="div-radio">
+          <label for="done">Done</label>
+          <input
+            type="radio"
+            id="done"
+            name="filter"
+            value="done"
+            v-model="filter"
+          />
+        </div>
+      </form>
+      <form @submit.prevent="addTodo">
         <input
-          type="radio"
-          id="done"
-          name="filter"
-          value="done"
-          v-model="filter"
-        />
-      </div>
-    </form>
-    <form @submit.prevent="addTodo">
-      <input
-        ref="todoInput"
-        v-model="newTodo"
-        type="text"
-        id="add"
-        placeholder="Enter your Todo..."
-        class="same-width"
-      /><label for="add"></label>
-    </form>
+          ref="todoInput"
+          v-model="newTodo"
+          type="text"
+          id="add"
+          placeholder="Enter your Todo..."
+          class="same-width"
+        /><label for="add"></label>
+      </form>
+    </div>
 
     <button @click="addTodo" id="addBtn" class="same-width">
       Add New ToDos
     </button>
 
-    <ul>
-      <li v-for="todo in filteredTodos" :key="todo.id">
-        <input
-          type="checkbox"
-          name="`todo-$(todo.id)`"
-          :id="`todo-$(todo.id)`"
-          :checked="todo.done"
-          @change="toggleTodoStatus(todo)"
-        />
-        <label v-bind:for="`todo-$(todo.id)`">
-          {{ todo.description }}
-        </label>
-      </li>
-    </ul>
+    <div class="container-liste">
+      <ul>
+        <li v-for="todo in filteredTodos" :key="todo.id">
+          <label v-bind:for="`todo-$(todo.id)`">
+            {{ todo.description }}
+          </label>
+          <input
+            type="checkbox"
+            name="`todo-$(todo.id)`"
+            :id="`todo-$(todo.id)`"
+            :checked="todo.done"
+            @change="toggleTodoStatus(todo)"
+          />
+        </li>
+      </ul>
+    </div>
     <button id="rmButton" @click="removeDoneTodos" class="same-width">
       Remove Done ToDos
     </button>
@@ -193,17 +197,21 @@ export default {
 }
 
 main {
-  padding-left: 50px;
   background: linear-gradient(315deg, #5a75ce, #0a1e65);
   height: 100vh;
-  /* display: flex; */
+  display: flex;
   flex-direction: column;
   flex-grow: 1; /* Allows main to take up available space */
-  margin-inline: -1rem;
+  margin-inline: -0.5rem;
 }
 
 ul {
   color: #ff7eff;
+  padding-left: 20px;
+}
+
+.container-liste {
+  align-self: center;
 }
 
 #rmButton {
@@ -215,7 +223,6 @@ ul {
   font-size: 17px;
   margin-bottom: 10px;
   box-shadow: 3px 3px 5px 1px #d5ff00;
-  margin-top: auto; /* Push the remove button to the bottom */
 }
 
 .same-width {
@@ -223,5 +230,6 @@ ul {
   max-width: 300px; /* Optional, to limit maximum width */
   box-sizing: border-box; /* Ensures padding is included in width */
   margin: 0.5rem 0; /* Add some spacing between elements */
+  align-self: center;
 }
 </style>
