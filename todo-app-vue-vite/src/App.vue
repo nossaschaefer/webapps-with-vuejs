@@ -2,53 +2,9 @@
   <HeaderComponent />
 
   <main class="centered-container">
-    <div class="container-radios">
-      <form id="radioBtns">
-        <div class="div-radio">
-          <label for="all">All</label>
-          <input
-            type="radio"
-            id="all"
-            name="filter"
-            value="all"
-            v-model="store.filter"
-          />
-        </div>
+    <RadioButtons />
 
-        <div class="div-radio">
-          <label for="open">Open</label>
-          <input
-            type="radio"
-            id="open"
-            name="filter"
-            value="open"
-            v-model="store.filter"
-          />
-        </div>
-
-        <div class="div-radio">
-          <label for="done">Done</label>
-          <input
-            type="radio"
-            id="done"
-            name="filter"
-            value="done"
-            v-model="store.filter"
-          />
-        </div>
-      </form>
-    </div>
-
-    <form @submit.prevent="store.addTodo">
-      <input
-        ref="todoInput"
-        v-model="store.newTodo"
-        type="text"
-        id="add"
-        placeholder="Enter your Todo..."
-        class="same-width"
-      /><label for="add"></label>
-    </form>
+    <InputComponent />
 
     <ButtonAddTodo id="addBtn" class="same-width" />
 
@@ -63,6 +19,8 @@ import HeaderComponent from '@/components/HeaderComponent.vue'
 import ButtonAddTodo from './components/ButtonAddTodo.vue'
 import ButtonRemoveTodo from '@/components/ButtonRemoveTodo.vue'
 import TodoList from './components/TodoList.vue'
+import RadioButtons from './components/RadioButtons.vue'
+import InputComponent from './components/InputComponent.vue'
 import { useTodosStore } from '@/stores/todos.js'
 
 export default {
@@ -75,6 +33,8 @@ export default {
     HeaderComponent,
     ButtonAddTodo,
     ButtonRemoveTodo,
+    RadioButtons,
+    InputComponent,
     TodoList,
   },
   computed: {},
@@ -160,7 +120,6 @@ ul {
 #all:checked,
 #open:checked,
 #done:checked {
-  /* Style the selected radio button */
   background-color: #d5ff00; /* Change the background color when checked */
 }
 
@@ -197,10 +156,7 @@ input:-webkit-autofill {
 }
 
 form {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex-start; */
-  padding-bottom: 0px; /* Add padding at the bottom */
+  padding-bottom: 0px;
   width: 300px; /* Control the width of the buttons area */
   align-self: center;
 }
