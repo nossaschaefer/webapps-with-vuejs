@@ -11,7 +11,7 @@
             id="all"
             name="filter"
             value="all"
-            v-model="filter"
+            v-model="store.filter"
           />
         </div>
 
@@ -22,7 +22,7 @@
             id="open"
             name="filter"
             value="open"
-            v-model="filter"
+            v-model="store.filter"
           />
         </div>
 
@@ -33,16 +33,16 @@
             id="done"
             name="filter"
             value="done"
-            v-model="filter"
+            v-model="store.filter"
           />
         </div>
       </form>
     </div>
 
-    <form @submit.prevent="addTodo">
+    <form @submit.prevent="store.addTodo">
       <input
         ref="todoInput"
-        v-model="newTodo"
+        v-model="store.newTodo"
         type="text"
         id="add"
         placeholder="Enter your Todo..."
@@ -50,21 +50,16 @@
       /><label for="add"></label>
     </form>
 
-    <ButtonAddTodo @addedTodo="addTodo" id="addBtn" class="same-width" />
+    <ButtonAddTodo id="addBtn" class="same-width" />
 
-    <TodoList
-      :filteredTodos="filteredTodos"
-      @toggleTodoStatus="toggleTodoStatus"
-    />
+    <TodoList />
 
-    <ButtonRemoveTodo @removedDoneTodos="removeDoneTodos" />
+    <ButtonRemoveTodo />
   </main>
 </template>
 
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue'
-import RadioButtons from './components/RadioButtons.vue'
-import InputAddTodo from './components/InputAddTodo.vue'
 import ButtonAddTodo from './components/ButtonAddTodo.vue'
 import ButtonRemoveTodo from '@/components/ButtonRemoveTodo.vue'
 import TodoList from './components/TodoList.vue'
@@ -74,114 +69,18 @@ export default {
   data() {
     return {
       store: useTodosStore(),
-      todos: JSON.parse(localStorage.getItem('todos')) || [],
-
-      newTodo: '',
-      filter: 'all',
     }
   },
   components: {
     HeaderComponent,
-    RadioButtons,
-    InputAddTodo,
     ButtonAddTodo,
     ButtonRemoveTodo,
     TodoList,
   },
-  computed: {
-    filteredTodos() {
-      if (this.filter === 'open') {
-        return this.todos.filter(todo => !todo.done)
-      } else if (this.filter === 'done') {
-        return this.todos.filter(todo => todo.done)
-      } else {
-        return this.todos // Shows all todos if 'all' is selected
-      }
-    },
-  },
-  methods: {
-    async addTodo() {
-      if (this.newTodo.trim()) {
-        const newTodo = {
-          description: this.newTodo,
-          done: false,
-        }
-        try {
-          const response = await fetch('http://localhost:3000/todos', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newTodo),
-          })
-          if (!response.ok) {
-            throw new Error('Failed to add todo')
-          }
-          const createdTodo = await response.json()
-          this.todos.push(createdTodo) // Use the response from the server
-          this.newTodo = ''
-          this.filter = 'all'
-          this.$refs.todoInput.focus()
-          this.saveTodos()
-        } catch (error) {
-          console.error('Error adding todo:', error)
-        }
-      }
-    },
-    saveTodos() {
-      localStorage.setItem('todos', JSON.stringify(this.todos)) // Save todos array
-    },
-    async toggleTodoStatus(todo) {
-      todo.done = !todo.done
-      try {
-        const response = await fetch(`http://localhost:3000/todos/${todo.id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ done: todo.done }),
-        })
-        if (!response.ok) {
-          throw new Error(`Failed to update todo with id ${todo.id}`)
-        }
-        this.saveTodos()
-      } catch (error) {
-        console.error('Error updating todo:', error)
-        // Optionally, revert the local state if update fails
-        todo.done = !todo.done
-      }
-    },
-    async removeDoneTodos() {
-      const completedTodos = this.todos.filter(todo => todo.done)
-      try {
-        for (const todo of completedTodos) {
-          const response = await fetch(
-            `http://localhost:3000/todos/${todo.id}`,
-            {
-              method: 'DELETE',
-            },
-          )
-          if (!response.ok) {
-            throw new Error(`Failed to delete todo with id ${todo.id}`)
-          }
-        }
-        // Filter out deleted todos from the local list
-        this.todos = this.todos.filter(todo => !todo.done)
-        this.filter = 'all'
-        this.saveTodos()
-      } catch (error) {
-        console.error('Error removing todos:', error)
-      }
-    },
-  },
+  computed: {},
+  methods: {},
   async created() {
-    try {
-      const response = await fetch('http://localhost:3000/todos')
-      if (!response.ok) {
-        throw new Error('Failed to fetch todos')
-      }
-      const todos = await response.json()
-      this.todos = todos
-      this.saveTodos() // Optionally save to localStorage if needed
-    } catch (error) {
-      console.error('Error fetching todos:', error)
-    }
+    await this.store.getTodos()
   },
 }
 </script>
@@ -227,6 +126,82 @@ ul {
   max-width: 300px; /* Optional, to limit maximum width */
   box-sizing: border-box; /* Ensures padding is included in width */
   margin: 0.5rem 0; /* Add some spacing between elements */
+  align-self: center;
+}
+
+#new-todo:focus,
+#new-todo:active,
+#new-todo:hover {
+  background-color: #4d1eef;
+  outline: none;
+  color: #ff7eff;
+}
+
+#radioBtns {
+  display: flex;
+  padding-block: 20px;
+  color: #ff7eff;
+  justify-content: space-evenly;
+}
+
+#all,
+#open,
+#done {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 3px solid #d5ff00; /* Border color */
+  border-radius: 50%; /* Make it circular */
+
+  cursor: pointer;
+  outline: none;
+}
+
+#all:checked,
+#open:checked,
+#done:checked {
+  /* Style the selected radio button */
+  background-color: #d5ff00; /* Change the background color when checked */
+}
+
+.div-radio {
+  display: flex;
+}
+
+.container-radios {
+  align-self: center;
+}
+
+/* Input-Style */
+
+input:-webkit-autofill {
+  background-color: #4d1eef !important;
+  color: #ff7eff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #4d1eef inset; /* This hack ensures the autofill background matches */
+  transition: background-color 5000s ease-in-out 0s; /* Prevents flickering */
+}
+
+#add {
+  /* display: flex; */
+  background-color: #5c2cff;
+  color: #ff7eff;
+  border: transparent;
+  border-radius: 3px;
+  padding: 10px;
+  font-size: 17px;
+  margin-bottom: 10px;
+  box-shadow: 3px 3px 5px 1px #d5ff00;
+}
+::placeholder {
+  color: #ff7eff;
+}
+
+form {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-start; */
+  padding-bottom: 0px; /* Add padding at the bottom */
+  width: 300px; /* Control the width of the buttons area */
   align-self: center;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="container-liste">
     <ul>
-      <li v-for="todo in filteredTodos" :key="todo.id">
+      <li v-for="todo in store.filteredTodos" :key="todo.id">
         <label v-bind:for="`todo-$(todo.id)`">
           {{ todo.description }}
         </label>
@@ -10,7 +10,7 @@
           name="`todo-$(todo.id)`"
           :id="`todo-$(todo.id)`"
           :checked="todo.done"
-          @change="$emit('toggleTodoStatus', todo)"
+          @change="store.toggleTodoStatus(todo)"
         />
       </li>
     </ul>
@@ -18,7 +18,15 @@
 </template>
 
 <script>
+import { useTodosStore } from '@/stores/todos.js'
+
 export default {
+  data() {
+    return {
+      store: useTodosStore(),
+    }
+  },
+
   props: { filteredTodos: Array, toggleTodoStatus: Function },
 }
 </script>

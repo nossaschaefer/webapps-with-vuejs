@@ -1,6 +1,18 @@
 <template>
-  <button @click="$emit('addedTodo')" id="addBtn">Add New ToDos</button>
+  <button @click="store.addTodo(todo)" id="addBtn">Add New ToDos</button>
 </template>
+
+<script>
+import { useTodosStore } from '@/stores/todos.js'
+
+export default {
+  data() {
+    return {
+      store: useTodosStore(),
+    }
+  },
+}
+</script>
 
 <style scoped>
 #addBtn {
