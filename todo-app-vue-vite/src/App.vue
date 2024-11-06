@@ -1,26 +1,14 @@
 <template>
+  <nav class="router-container">
+    <RouterLink class="router" :to="{ name: 'home' }">Home</RouterLink>
+    <RouterLink class="router" :to="{ name: 'about' }">About</RouterLink>
+  </nav>
   <HeaderComponent />
-
-  <main class="centered-container">
-    <RadioButtons />
-
-    <InputComponent />
-
-    <ButtonAddTodo id="addBtn" class="same-width" />
-
-    <TodoList />
-
-    <ButtonRemoveTodo />
-  </main>
+  <RouterView />
 </template>
 
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue'
-import ButtonAddTodo from './components/ButtonAddTodo.vue'
-import ButtonRemoveTodo from '@/components/ButtonRemoveTodo.vue'
-import TodoList from './components/TodoList.vue'
-import RadioButtons from './components/RadioButtons.vue'
-import InputComponent from './components/InputComponent.vue'
 import { useTodosStore } from '@/stores/todos.js'
 
 export default {
@@ -31,11 +19,6 @@ export default {
   },
   components: {
     HeaderComponent,
-    ButtonAddTodo,
-    ButtonRemoveTodo,
-    RadioButtons,
-    InputComponent,
-    TodoList,
   },
   computed: {},
   methods: {},
@@ -50,6 +33,19 @@ export default {
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+.router {
+  color: #ff7eff;
+  font-family: Arial, Helvetica, sans-serif;
+
+  padding: 10px;
+}
+
+.router-container {
+  background-color: #5c2cff;
+  padding-top: 10px;
+  margin-right: -0.5rem;
 }
 
 main {
