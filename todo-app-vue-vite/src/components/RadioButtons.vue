@@ -48,3 +48,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+form {
+  padding-bottom: 0px;
+  width: 300px; /* Control the width of the buttons area */
+  align-self: center;
+}
+</style>

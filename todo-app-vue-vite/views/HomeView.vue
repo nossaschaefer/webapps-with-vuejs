@@ -5,15 +5,13 @@
 
   <HeaderComponent />
   <main class="centered-container">
+    <div class="container-add-todo">
+      <InputComponent />
+      <ButtonAddTodo id="addBtn" class="same-width" />
+    </div>
     <RadioButtons />
-
-    <InputComponent />
-
-    <ButtonAddTodo id="addBtn" class="same-width" />
-
-    <TodoList />
-
     <ButtonRemoveTodo />
+    <TodoList />
   </main>
 </template>
 
@@ -47,3 +45,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.container-add-todo {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+}
+</style>

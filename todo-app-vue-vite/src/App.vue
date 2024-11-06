@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import HeaderComponent from '@/components/HeaderComponent.vue'
 import { useTodosStore } from '@/stores/todos.js'
 
 export default {
@@ -12,9 +11,7 @@ export default {
       store: useTodosStore(),
     }
   },
-  components: {
-    HeaderComponent,
-  },
+  components: {},
   computed: {},
   methods: {},
   async created() {
@@ -51,13 +48,7 @@ main {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Allows main to take up available space */
   margin-inline: -0.5rem;
-}
-
-ul {
-  color: #ff7eff;
-  padding-left: 20px;
 }
 
 .container-liste {
@@ -73,14 +64,8 @@ ul {
   font-size: 17px;
   margin-bottom: 10px;
   box-shadow: 3px 3px 5px 1px #d5ff00;
-}
-
-.same-width {
-  width: 100%; /* or specify a fixed width, e.g., 300px */
-  max-width: 300px; /* Optional, to limit maximum width */
-  box-sizing: border-box; /* Ensures padding is included in width */
-  margin: 0.5rem 0; /* Add some spacing between elements */
   align-self: center;
+  margin-right: 10.8rem;
 }
 
 #new-todo:focus,
@@ -95,7 +80,8 @@ ul {
   display: flex;
   padding-block: 20px;
   color: #ff7eff;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  margin-right: 3.5rem;
 }
 
 #all,
@@ -106,7 +92,7 @@ ul {
   height: 15px;
   border: 3px solid #d5ff00; /* Border color */
   border-radius: 50%; /* Make it circular */
-
+  margin-right: 2rem;
   cursor: pointer;
   outline: none;
 }
@@ -142,16 +128,11 @@ input:-webkit-autofill {
   border-radius: 3px;
   padding: 10px;
   font-size: 17px;
-  margin-bottom: 10px;
+  padding-inline: 3rem;
+
   box-shadow: 3px 3px 5px 1px #d5ff00;
 }
 ::placeholder {
   color: #ff7eff;
-}
-
-form {
-  padding-bottom: 0px;
-  width: 300px; /* Control the width of the buttons area */
-  align-self: center;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <button id="rmButton" @click="store.removeDoneTodos(todo)" class="same-width">
+  <button id="rmButton" @click="store.removeDoneTodos(todo)">
     Remove Done Todos
   </button>
 </template>
