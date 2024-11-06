@@ -42,7 +42,6 @@ export const useTodosStore = defineStore('todos', {
           this.filter = 'all'
 
           this.saveTodos()
-          this.$refs.todoInput.focus()
         } catch (error) {
           console.error('Error adding todo:', error)
         }

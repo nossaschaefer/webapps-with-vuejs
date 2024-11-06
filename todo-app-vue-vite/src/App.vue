@@ -1,9 +1,4 @@
 <template>
-  <nav class="router-container">
-    <RouterLink class="router" :to="{ name: 'home' }">Home</RouterLink>
-    <RouterLink class="router" :to="{ name: 'about' }">About</RouterLink>
-  </nav>
-  <HeaderComponent />
   <RouterView />
 </template>
 
@@ -39,7 +34,10 @@ export default {
   color: #ff7eff;
   font-family: Arial, Helvetica, sans-serif;
 
-  padding: 10px;
+  padding: 6px;
+  padding-left: 10px;
+
+  text-decoration: none;
 }
 
 .router-container {

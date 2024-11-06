@@ -1,6 +1,6 @@
 <template>
   <button id="rmButton" @click="store.removeDoneTodos(todo)" class="same-width">
-    Remove Done ToDos
+    Remove Done Todos
   </button>
 </template>
 <script>

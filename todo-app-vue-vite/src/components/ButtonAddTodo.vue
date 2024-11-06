@@ -1,5 +1,5 @@
 <template>
-  <button @click="store.addTodo(todo)" id="addBtn">Add New ToDos</button>
+  <button @click="store.addTodo(todo)" id="addBtn">Add New Todos</button>
 </template>
 
 <script>

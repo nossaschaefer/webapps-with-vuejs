@@ -1,4 +1,9 @@
 <template>
+  <nav class="router-container">
+    <RouterLink class="router" :to="{ name: 'about' }">About</RouterLink>
+  </nav>
+
+  <HeaderComponent />
   <main class="centered-container">
     <RadioButtons />
 
@@ -18,6 +23,7 @@ import ButtonRemoveTodo from '@/components/ButtonRemoveTodo.vue'
 import TodoList from '@/components/TodoList.vue'
 import RadioButtons from '@/components/RadioButtons.vue'
 import InputComponent from '@/components/InputComponent.vue'
+import HeaderComponent from '@/components/HeaderComponent.vue'
 import { useTodosStore } from '@/stores/todos.js'
 
 export default {
@@ -32,6 +38,7 @@ export default {
     RadioButtons,
     InputComponent,
     TodoList,
+    HeaderComponent,
   },
   computed: {},
   methods: {},
