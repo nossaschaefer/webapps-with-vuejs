@@ -2,8 +2,18 @@ import { defineStore } from 'pinia'
 
 export const useTodosStore = defineStore('todos', {
   state() {
+    const savedTodos = JSON.parse(localStorage.getItem('todos')) || []
+    if (savedTodos.length === 0) {
+      // Add default todos if there are no todos in localStorage
+      savedTodos.push(
+        { description: 'Learn Vue.js', done: false },
+        { description: 'Build a portfolio', done: true },
+        { description: 'Update resume', done: false },
+      )
+      localStorage.setItem('todos', JSON.stringify(savedTodos))
+    }
     return {
-      todos: JSON.parse(localStorage.getItem('todos')) || [],
+      // todos: JSON.parse(localStorage.getItem('todos')) || [],
 
       newTodo: '',
       filter: 'all',
