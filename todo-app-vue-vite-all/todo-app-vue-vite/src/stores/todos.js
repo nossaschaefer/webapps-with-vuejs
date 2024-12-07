@@ -13,7 +13,7 @@ export const useTodosStore = defineStore('todos', {
       localStorage.setItem('todos', JSON.stringify(savedTodos))
     }
     return {
-      // todos: JSON.parse(localStorage.getItem('todos')) || [],
+      todos: JSON.parse(localStorage.getItem('todos')) || [],
 
       newTodo: '',
       filter: 'all',

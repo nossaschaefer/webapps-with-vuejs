@@ -15,7 +15,8 @@ export default {
   computed: {},
   methods: {},
   async created() {
-    await this.store.getTodos()
+    // await this.store.getTodos()
+    this.store.todos
   },
 }
 </script>
