@@ -28,9 +28,20 @@ export default {
   box-sizing: border-box;
 }
 
+div#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .router {
   color: #ff7eff;
-  font-family: Arial, Helvetica, sans-serif;
 
   margin-top: 30px;
   margin-left: 20px;
@@ -45,7 +56,7 @@ export default {
 
 main {
   background: linear-gradient(315deg, #5a75ce, #0a1e65);
-  height: 100vh;
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
