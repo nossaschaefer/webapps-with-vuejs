@@ -50,7 +50,8 @@ export default {
 <style scoped>
 .container-add-todo {
   display: flex;
-  justify-content: center;
-  padding-top: 30px;
+  margin-top: 2rem;
+  margin-inline: 1.5rem;
+  align-self: center;
 }
 </style>

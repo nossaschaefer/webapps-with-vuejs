@@ -32,8 +32,8 @@ export default {
   color: #ff7eff;
   font-family: Arial, Helvetica, sans-serif;
 
-  padding: 6px;
-  padding-left: 10px;
+  margin-top: 30px;
+  margin-left: 20px;
 
   text-decoration: none;
 }
@@ -54,6 +54,7 @@ main {
 
 .container-liste {
   align-self: center;
+  margin-right: 10rem;
 }
 
 #rmButton {
@@ -65,8 +66,8 @@ main {
   font-size: 17px;
   margin-bottom: 10px;
   box-shadow: 3px 3px 5px 1px #d5ff00;
-  align-self: center;
-  margin-right: 10.8rem;
+  margin-left: 3rem;
+  margin-right: 9rem;
 }
 
 #new-todo:focus,
@@ -81,8 +82,6 @@ main {
   display: flex;
   padding-block: 20px;
   color: #ff7eff;
-  justify-content: flex-start;
-  margin-right: 3.5rem;
 }
 
 #all,
@@ -110,6 +109,7 @@ main {
 
 .container-radios {
   align-self: center;
+  margin-left: 3rem;
 }
 
 /* Input-Style */
@@ -129,9 +129,8 @@ input:-webkit-autofill {
   border-radius: 3px;
   padding: 10px;
   font-size: 17px;
-  padding-inline: 3rem;
-
   box-shadow: 3px 3px 5px 1px #d5ff00;
+  margin-right: 20px;
 }
 ::placeholder {
   color: #ff7eff;

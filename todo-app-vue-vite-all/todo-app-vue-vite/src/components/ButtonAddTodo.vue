@@ -17,7 +17,7 @@ export default {
 <style scoped>
 #addBtn {
   background-color: #d5ff00;
-  color: #ff7eff;
+  color: #5c2cff;
 
   border: transparent;
   border-radius: 3px;
@@ -26,5 +26,6 @@ export default {
 
   box-shadow: 3px 3px 5px 1px #ff7eff;
   align-self: center;
+  cursor: pointer;
 }
 </style>

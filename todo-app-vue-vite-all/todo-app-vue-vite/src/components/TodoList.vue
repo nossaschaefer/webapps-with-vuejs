@@ -32,9 +32,13 @@ export default {
 </script>
 
 <style scoped>
+.container-liste {
+  display: flex;
+}
+
 ul {
   color: #ff7eff;
-  margin-left: -13.5rem;
+  align-self: center;
 }
 li {
   padding-block: 5px;
