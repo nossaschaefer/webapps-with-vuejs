@@ -10,7 +10,6 @@ header {
   padding-top: 50px;
 
   padding-bottom: 8px;
-  margin: -0.5rem;
 }
 
 h1 {

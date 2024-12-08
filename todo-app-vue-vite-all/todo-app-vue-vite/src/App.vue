@@ -41,7 +41,6 @@ export default {
 .router-container {
   background-color: #5c2cff;
   padding-top: 10px;
-  margin-right: -0.5rem;
 }
 
 main {
@@ -49,7 +48,6 @@ main {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  margin-inline: -0.5rem;
 }
 
 .container-liste {
